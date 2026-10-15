@@ -1,4 +1,4 @@
-*! leedid 0.1.0 15oct2026 -- Haoyu Niu
+*! leedid 0.1.1 15oct2026 -- Haoyu Niu
 program define leedid, eclass sortpreserve
     version 16.0
     syntax varname(numeric) [if] [in], UNIT(varname) TIME(varname numeric) ///

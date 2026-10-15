@@ -4,3 +4,5 @@
 .superpowers/
 work/
 tests/generated/
+data/*.dta
+examples/*.png

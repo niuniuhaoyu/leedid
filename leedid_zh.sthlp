@@ -1,6 +1,10 @@
 {smcl}
-{* *! version 0.1.0 15oct2026}{...}
-{title:leedid — 样本选择下的 DID 与 Changes-in-Changes 界限估计}
+{* *! version 0.1.1 15oct2026}{...}
+{hline}
+{p 4 8 2}{bf:leedid} — 样本选择下的 DID 与 Changes-in-Changes 界限估计{right:version 0.1.1}
+{hline}
+
+{p 4 4 2}{it:English help / 英文帮助:} {help leedid}
 
 {pstd}
 本命令实现 Viviens (2026) 的两期面板、吸收性样本选择模型，估计处理组
@@ -25,14 +29,18 @@ directions() 与选择变量逐一对应：1 表示处理弱提高被观测概�
 方向属于研究者提出的识别假设，不由样本选择率自动推断。
 
 {title:选项}
-{pstd}
-pre()/post() 必须同时指定；省略时样本必须恰有两个时期。
-probs() 默认为 .1(.1).9，取值严格介于 0 和 1。
-平均 CiC 界限按经验函数精确积分，不随报告分位点网格改变。
-reps() 默认 199，0 表示只计算点估计，不能为 1。
-seed() 设置 Stata 随机种子；level() 默认为当前置信水平。
-cluster() 按整群重抽样，群组归属须在单位内固定；默认按整单位重抽样。
-推断至少需要两个重抽样群组。graph 绘图，估计后可用 leedid_plot 重绘。
+{p 4 4 2}{cmd:unit(}{it:varname}{cmd:)} 指定单位，可使用数值或字符串标识。
+{p 4 4 2}{cmd:time(}{it:varname}{cmd:)} 指定数值型时期变量。
+{p 4 4 2}{cmd:treat(}{it:varname}{cmd:)} 指定固定的 0/1 处理组标识。
+{p 4 4 2}{cmd:selection(}{it:varlist}{cmd:)} 列出互斥选择原因。
+{p 4 4 2}{cmd:directions(}{it:numlist}{cmd:)} 为每种原因指定一个方向（1 或 -1）。
+{p 4 4 2}{cmd:pre(}{it:#}{cmd:)} / {cmd:post(}{it:#}{cmd:)} 必须同时指定；省略时样本须恰有两期。
+{p 4 4 2}{cmd:probs(}{it:numlist}{cmd:)} 默认 .1(.1).9，严格介于 0 和 1；平均 CiC 界限的精确积分不随报告网格改变。
+{p 4 4 2}{cmd:reps(}{it:#}{cmd:)} 默认 199；0 表示只计算点估计，不能为 1。正式分析应增加重抽样次数。
+{p 4 4 2}{cmd:seed(}{it:#}{cmd:)} 设置 Stata 随机种子，默认不设置。
+{p 4 4 2}{cmd:level(}{it:#}{cmd:)} 默认使用 Stata 当前置信水平。
+{p 4 4 2}{cmd:cluster(}{it:varname}{cmd:)} 按整群重抽样，归属须在单位内固定；默认按完整单位重抽样。推断至少需要两个群组。
+{p 4 4 2}{cmd:graph} 绘制分位数界限。估计后使用 {cmd:leedid_plot} 重绘；{cmd:leedid_plot, name(}{it:name}{cmd:)} 指定图名。
 
 {title:推断与适用范围}
 {pstd}

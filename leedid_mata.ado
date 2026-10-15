@@ -1,4 +1,4 @@
-*! leedid numerical routines 0.1.0 15oct2026
+*! leedid numerical routines 0.1.1 15oct2026
 version 16.0
 mata:
 real scalar _ld_version() return(1)

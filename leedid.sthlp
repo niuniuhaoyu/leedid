@@ -1,6 +1,10 @@
 {smcl}
-{* *! version 0.1.0 15oct2026}{...}
-{title:leedid — Selection-adjusted DID and Changes-in-Changes bounds}
+{* *! version 0.1.1 15oct2026}{...}
+{hline}
+{p 4 8 2}{bf:leedid} — Selection-adjusted DID and Changes-in-Changes bounds{right:version 0.1.1}
+{hline}
+
+{p 4 4 2}{it:Chinese help / 中文帮助:} {help leedid_zh}
 
 {title:Syntax}
 {p 8 12 2}
@@ -35,31 +39,18 @@ Each direction must be 1 (treatment weakly increases selection) or -1
 These are user-supplied identification assumptions.
 
 {title:Options}
-{pstd}
-{cmd:pre()} and {cmd:post()} select the two periods. Supply both or neither;
-without them the sample must contain exactly two distinct periods.
-
-{pstd}
-{cmd:probs()} specifies reporting quantiles strictly between 0 and 1;
-default .1(.1).9. Average CiC bounds use exact empirical integration and do not
-depend on this reporting grid.
-
-{pstd}
-{cmd:reps()} sets bootstrap replications, default 199. Use 0 for estimates only;
-1 is invalid. {cmd:seed()} sets Stata's RNG seed. {cmd:level()} sets coverage,
-defaulting to Stata's current confidence level.
-
-{pstd}
-{cmd:cluster()} resamples entire clusters; membership must be fixed within unit.
-Without it, entire units are resampled. Inference requires at least two clusters.
-AO shares are re-estimated in every draw. Any undefined draw withholds all
-bootstrap SEs and confidence intervals; inspect {cmd:e(reps_failed)}.
-
-{pstd}
-{cmd:graph} draws quantile bounds. {cmd:leedid_plot} redraws them after estimation.
-The confidence intervals are Imbens-Manski pointwise parameter intervals,
-not simultaneous bands. Small numbers of replications are useful for testing;
-use more for substantive inference.
+{p 4 4 2}{cmd:unit(}{it:varname}{cmd:)} identifies panel units; numeric and string IDs are supported.
+{p 4 4 2}{cmd:time(}{it:varname}{cmd:)} identifies the numeric period variable.
+{p 4 4 2}{cmd:treat(}{it:varname}{cmd:)} is the fixed binary group assignment.
+{p 4 4 2}{cmd:selection(}{it:varlist}{cmd:)} lists mutually exclusive selection causes.
+{p 4 4 2}{cmd:directions(}{it:numlist}{cmd:)} lists one monotonicity sign (1 or -1) per source.
+{p 4 4 2}{cmd:pre(}{it:#}{cmd:)} and {cmd:post(}{it:#}{cmd:)} select periods. Supply both or neither; without them the sample must contain exactly two distinct periods.
+{p 4 4 2}{cmd:probs(}{it:numlist}{cmd:)} specifies reporting quantiles strictly between 0 and 1; default .1(.1).9. Average CiC bounds use exact empirical integration independently of this grid.
+{p 4 4 2}{cmd:reps(}{it:#}{cmd:)} sets bootstrap replications (default 199). Use 0 for estimates only; 1 is invalid. Use more replications for substantive inference.
+{p 4 4 2}{cmd:seed(}{it:#}{cmd:)} sets Stata's RNG seed; omitted by default.
+{p 4 4 2}{cmd:level(}{it:#}{cmd:)} sets coverage, defaulting to Stata's current confidence level.
+{p 4 4 2}{cmd:cluster(}{it:varname}{cmd:)} resamples whole clusters; membership must be fixed within unit. Default: whole units. Inference requires at least two clusters. Every draw re-estimates AO shares; any undefined draw withholds all SEs and intervals. Inspect {cmd:e(reps_failed)}.
+{p 4 4 2}{cmd:graph} draws quantile bounds and available Imbens-Manski pointwise parameter intervals. These are not simultaneous bands. Use {cmd:leedid_plot} to redraw after estimation; {cmd:leedid_plot, name(}{it:name}{cmd:)} specifies the graph name.
 
 {title:Assumptions and limits}
 {pstd}

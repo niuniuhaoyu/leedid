@@ -1,10 +1,16 @@
-# leedid — selection-adjusted DID and Changes-in-Changes for Stata
+# leedid
 
-[简体中文](README_zh.md) · [Methods](docs/methods.md) · [Validation](docs/validation.md)
+[English](README.md) | [简体中文](README_zh.md)
+
+**Selection-adjusted DID and Changes-in-Changes bounds for Stata**
+
+[![Stata 16+](https://img.shields.io/badge/Stata-16%2B-blue.svg)](https://www.stata.com/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+[![Version: 0.1.1](https://img.shields.io/badge/Version-0.1.1-green.svg)](CHANGELOG.md)
 
 Native Stata/Mata implementation of Javier Viviens's **Estimating the Intensive Margin Effect in Panel Data Settings**, [arXiv:2502.08614v2](https://arxiv.org/abs/2502.08614v2), February 2026. The original 2025 draft was titled *Difference-in-Differences and Changes-in-Changes with Sample Selection*.
 
-Version **0.1.0**. Stata **16+**, no external runtime or package dependencies. Tested on Stata/MP 19. Method: **Javier Viviens**. Stata implementation: **Haoyu Niu**. This is an independent implementation, not an author-endorsed release.
+Version **0.1.1**. Stata **16+**, no external runtime or package dependencies. Tested on Stata/MP 19. Method: **Javier Viviens**. Stata implementation: **Haoyu Niu**. An independent Stata implementation.
 
 ## What it estimates
 
@@ -93,6 +99,50 @@ If estimated AO shares exceed one, they are projected to one and reported via `e
 
 The author provides an [R package, LeeDiD](https://github.com/JavierViviens/LeeDiD). Our verification pins commit `f02aac93feb2bb75ec8780a250e1ac6add9d7541`. We compare selection shares and quantile-bound functions, use independent fractional trimming, and integrate the author's quantile functions over all empirical breakpoints. Inverse-CDF boundary arithmetic is stabilized explicitly in the comparison harness; raw results are retained separately. **This is not a claim of bit-for-bit equivalence to the unmodified R package.** Details and reproducible commands are in [validation](docs/validation.md).
 
-## Citation and license
+## Reproducibility
 
-Cite Viviens for the method and Niu for this implementation. See [CITATION.cff](CITATION.cff). MIT license; the R reference has its own MIT license and is not bundled in the installed Stata package.
+Run from the repository root (the examples clear the current data):
+
+```stata
+do examples/leedid_example.do
+do examples/make_figure.do
+```
+
+- `examples/leedid_simdata.do` generates `data/leedid_sim.dta`.
+- `examples/leedid_example.do` generates the data and runs the estimator.
+- `examples/make_figure.do` saves `examples/leedid_figure.png`.
+- `tests/reference.R` supplies the R comparison; see [validation](docs/validation.md).
+
+See [methods](docs/methods.md) for estimator conventions and [CHANGELOG](CHANGELOG.md) for release history.
+
+## Citation
+
+Method and software:
+
+```bibtex
+@misc{viviens2026intensive,
+  title  = {Estimating the Intensive Margin Effect in Panel Data Settings},
+  author = {Viviens, Javier},
+  year   = {2026},
+  note   = {arXiv:2502.08614v2},
+  url    = {https://arxiv.org/abs/2502.08614v2}
+}
+
+@software{niu2026leedid,
+  title   = {leedid: Selection-adjusted DID and Changes-in-Changes bounds for Stata},
+  author  = {Niu, Haoyu},
+  year    = {2026},
+  version = {0.1.1},
+  url     = {https://github.com/niuniuhaoyu/leedid}
+}
+```
+
+See also [CITATION.cff](CITATION.cff).
+
+## License
+
+[MIT](LICENSE)
+
+---
+
+[English](README.md) | [简体中文](README_zh.md)

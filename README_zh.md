@@ -1,10 +1,16 @@
-# leedid：样本选择下的 DID / CiC 界限估计
+# leedid
 
-[English](README.md) · [方法说明](docs/methods.md) · [验证记录](docs/validation.md)
+[English](README.md) | [简体中文](README_zh.md)
+
+**Stata 样本选择下的 DID 与 Changes-in-Changes 界限估计**
+
+[![Stata 16+](https://img.shields.io/badge/Stata-16%2B-blue.svg)](https://www.stata.com/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+[![Version: 0.1.1](https://img.shields.io/badge/Version-0.1.1-green.svg)](CHANGELOG.md)
 
 本包用 Stata/Mata 原生实现 Javier Viviens 的 *Estimating the Intensive Margin Effect in Panel Data Settings*（[arXiv:2502.08614v2，2026 年 2 月](https://arxiv.org/abs/2502.08614v2)）。2025 年初稿题为 *Difference-in-Differences and Changes-in-Changes with Sample Selection*。
 
-版本 **0.1.0**，要求 Stata **16+**，不依赖 R、Python 或其他 Stata 包。实际测试环境为 Stata/MP 19。方法作者：**Javier Viviens**；Stata 实现：**Haoyu Niu**。这是独立实现，不代表原作者背书，也不宣称方法原创。
+版本 **0.1.1**，要求 Stata **16+**，不依赖 R、Python 或其他 Stata 包。实际测试环境为 Stata/MP 19。方法作者：**Javier Viviens**；Stata 实现：**Haoyu Niu**。本包为独立的 Stata 实现。
 
 ## 用途
 
@@ -69,4 +75,57 @@ DID 要求 AO 人群的平行趋势；CiC 使用单调潜在结果模型、潜�
 
 作者已有 [R 包 LeeDiD](https://github.com/JavierViviens/LeeDiD)。本包以固定版本对照选择比例、分位数界限和置信区间，并独立校验分数质量修剪、平均界限积分和重抽样结果。R 对照脚本明确处理经验逆分布的浮点边界，并保留原始结果作比较；不能把结果表述成“未经修改的 R 包逐位一致”。完整说明见 [验证记录](docs/validation.md)。
 
-MIT 许可。引用方法时署名 Viviens；引用 Stata 软件时署名 Niu。
+## 复现示例
+
+在仓库根目录运行（示例会清空当前数据）：
+
+```stata
+do examples/leedid_example.do
+do examples/make_figure.do
+```
+
+- `examples/leedid_simdata.do` 生成 `data/leedid_sim.dta`。
+- `examples/leedid_example.do` 生成数据并运行估计。
+- `examples/make_figure.do` 保存 `examples/leedid_figure.png`。
+- `tests/reference.R` 提供 R 对照，详见 [验证记录](docs/validation.md)。
+
+通过 Stata 安装的用户也可获取独立的一键示例：
+
+```stata
+net get leedid, from("https://raw.githubusercontent.com/niuniuhaoyu/leedid/main/") replace
+do leedid_example.do
+```
+
+方法细节见 [方法说明](docs/methods.md)，版本变动见 [更新日志](CHANGELOG.md)。
+
+## 引用
+
+方法与软件分别引用：
+
+```bibtex
+@misc{viviens2026intensive,
+  title  = {Estimating the Intensive Margin Effect in Panel Data Settings},
+  author = {Viviens, Javier},
+  year   = {2026},
+  note   = {arXiv:2502.08614v2},
+  url    = {https://arxiv.org/abs/2502.08614v2}
+}
+
+@software{niu2026leedid,
+  title   = {leedid: Selection-adjusted DID and Changes-in-Changes bounds for Stata},
+  author  = {Niu, Haoyu},
+  year    = {2026},
+  version = {0.1.1},
+  url     = {https://github.com/niuniuhaoyu/leedid}
+}
+```
+
+另见 [CITATION.cff](CITATION.cff)。
+
+## 许可证
+
+[MIT](LICENSE)
+
+---
+
+[English](README.md) | [简体中文](README_zh.md)

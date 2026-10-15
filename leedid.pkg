@@ -1,6 +1,6 @@
 v 3
 d leedid: selection-adjusted DID and Changes-in-Changes bounds
-d Version 0.1.0; 15 October 2026
+d Version 0.1.1; 15 October 2026
 d Method: Javier Viviens (2026), arXiv:2502.08614v2
 d Stata implementation: Haoyu Niu
 f leedid.ado
