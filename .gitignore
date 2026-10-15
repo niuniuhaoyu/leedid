@@ -1,0 +1,6 @@
+*.log
+*.smcl
+.DS_Store
+.superpowers/
+work/
+tests/generated/
