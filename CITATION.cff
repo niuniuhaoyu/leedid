@@ -1,0 +1,18 @@
+cff-version: 1.2.0
+message: "Cite this software for the Stata implementation and Viviens (2026), arXiv:2502.08614v2, for the method."
+title: "leedid: Selection-adjusted DID and Changes-in-Changes bounds for Stata"
+version: 0.1.0
+date-released: 2026-10-15
+authors:
+  - family-names: Niu
+    given-names: Haoyu
+repository-code: "https://github.com/niuniuhaoyu/leedid"
+license: MIT
+references:
+  - type: unpublished
+    title: "Estimating the Intensive Margin Effect in Panel Data Settings"
+    authors:
+      - family-names: Viviens
+        given-names: Javier
+    year: 2026
+    url: "https://arxiv.org/abs/2502.08614v2"

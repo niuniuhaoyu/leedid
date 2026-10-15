@@ -25,10 +25,12 @@ real scalar _ld_cdf(real colvector x, real scalar y)
 real scalar _ld_trim(real colvector x, real scalar p, real scalar upper)
 {
     real scalar m, k, z
-    if (upper) x=x[rows(x)::1]
+    real colvector ordered
+    ordered=x
+    if (upper) ordered=x[rows(x)::1]
     m=rows(x)*p; k=floor(m); z=0
-    if (k>0) z=sum(x[1::k])
-    if (k<rows(x)) z=z+(m-k)*x[k+1]
+    if (k>0) z=sum(ordered[1::k])
+    if (k<rows(x)) z=z+(m-k)*ordered[k+1]
     return(z/m)
 }
 real rowvector _ld_qbounds(real colvector a, real colvector b,

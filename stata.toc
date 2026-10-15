@@ -1,0 +1,3 @@
+v 3
+d Haoyu Niu: Stata packages
+p leedid Selection-adjusted DID and Changes-in-Changes bounds

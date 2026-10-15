@@ -22,13 +22,6 @@ program define leedid, eclass sortpreserve
     marksample touse, novarlist
     quietly count if `touse'
     if r(N)==0 error 2000
-    foreach v in `unit' `time' `treat' `selection' `cluster' {
-        quietly count if `touse' & missing(`v')
-        if r(N)>0 {
-            di as error "Missing `v' in the analysis roster; do not delete attrited units"
-            exit 459
-        }
-    }
     if (`pre'==-999999)!=(`post'==-999999) {
         di as error "Specify both pre() and post(), or neither"
         exit 198
@@ -45,6 +38,13 @@ program define leedid, eclass sortpreserve
     }
     if `pre'>=`post' exit 198
     quietly replace `touse'=0 if !inlist(`time',`pre',`post')
+    foreach v in `unit' `time' `treat' `selection' `cluster' {
+        quietly count if `touse' & missing(`v')
+        if r(N)>0 {
+            di as error "Missing `v' in the analysis roster; do not delete attrited units"
+            exit 459
+        }
+    }
     preserve
     quietly keep if `touse'
     quietly count
@@ -104,6 +104,11 @@ program define leedid, eclass sortpreserve
     tempvar clid
     if "`cluster'"=="" quietly egen long `clid'=group(`unit')
     else quietly egen long `clid'=group(`cluster')
+    quietly summarize `clid', meanonly
+    if `reps'>0 & r(max)<2 {
+        di as error "Bootstrap inference requires at least two resampling clusters"
+        exit 459
+    }
     tempname bounds qtt meta b detail V boot bootq
     mata: _ld_run("`treat' `y' `selection'", "`directions'", "`probs'", "`bounds'", "`qtt'", "`meta'", "`b'", "`detail'", "`clid'", `reps', `level'/100, "`V'", "`boot'", "`bootq'")
     restore
